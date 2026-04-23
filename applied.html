@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applied Jobs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Your Applications</h1>
+<div id="applications"></div>
+
+<script>
+async function loadApplications() {
+    const email = prompt("Enter your email");
+
+    const res = await fetch("http://localhost:5000/api/applications");
+    const data = await res.json();
+
+    let output = "";
+
+    data.forEach(app => {
+        if (app.userEmail === email) {
+            output += `
+                <div class="card">
+                    <p>Job ID: ${app.jobId}</p>
+                    <p>Email: ${app.userEmail}</p>
+                </div>
+            `;
+        }
+    });
+
+    document.getElementById("applications").innerHTML = output;
+}
+
+loadApplications();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+</head>
+<body>
+
+<h2>Add Job</h2>
+
+<input id="title" placeholder="Title"><br><br>
+<input id="company" placeholder="Company"><br><br>
+<input id="location" placeholder="Location"><br><br>
+<input id="salary" placeholder="Salary"><br><br>
+
+<button onclick="addJob()">Add Job</button>
+
+<script>
+async function addJob() {
+    const job = {
+        title: document.getElementById("title").value,
+        company: document.getElementById("company").value,
+        location: document.getElementById("location").value,
+        salary: document.getElementById("salary").value
+    };
+
+    const res = await fetch("http://localhost:5000/api/jobs/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(job)
+    });
+
+    const data = await res.json();
+    alert(data.message);
+}
+</script>
+
+</body>
+</html>
